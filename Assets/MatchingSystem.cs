@@ -36,8 +36,7 @@ public class MatchingSystem : MonoBehaviour
 			nextItem = item;
 			item.Flip();
 
-			currentMatchIsSuccess =
-				previousItem.image.sprite == nextItem.image.sprite;
+			currentMatchIsSuccess = previousItem.image.sprite == nextItem.image.sprite;
 
 			matchingCoroutine = StartCoroutine(Matching(previousItem, nextItem));
 
@@ -66,6 +65,8 @@ public class MatchingSystem : MonoBehaviour
 		CompleteMatch(item1, item2);
 	}
 
+	// this function that override open other cards while matching
+	// make playing and open cards more fast and smoothly
 	void HandleFastInput()
 	{
 		if (matchingCoroutine != null)

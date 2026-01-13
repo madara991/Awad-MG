@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		ResetGame();
+
+		totalCards = GetAllItems().Length;
 		totalMatches = totalCards / 2;
 
 	}
@@ -66,5 +68,10 @@ public class GameManager : MonoBehaviour
 		turnNumber = 0;
 		matchNumber = 0;
 		isGameFinished = false;
+	}
+
+	Item[] GetAllItems()
+	{
+		return FindObjectsByType<Item>(FindObjectsSortMode.None);
 	}
 }
