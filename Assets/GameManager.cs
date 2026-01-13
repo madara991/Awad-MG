@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,13 +8,15 @@ public class GameManager : MonoBehaviour
 
 	[Header("Game Stats")]
 	public int turnNumber;
-	public int matchNumber;
-
-	private int totalCards;         
-	private int totalMatches;        
+	public int matchNumber;       
 
 	[Header("Win Events")]
 	public UnityEvent OnGameWin;
+
+	public Transform GridAreaContiner; // the gameobject that hold size grid of items/images
+
+	private int totalCards;
+	private int totalMatches;
 
 	private bool isGameFinished;
 
@@ -32,6 +35,7 @@ public class GameManager : MonoBehaviour
 		totalCards = GetAllItems().Length;
 		totalMatches = totalCards / 2;
 
+		Instantiate(LevelManager.Instance.levelData.ContentSize, GridAreaContiner);
 	}
 
 	public void RegisterTurn()
@@ -68,6 +72,11 @@ public class GameManager : MonoBehaviour
 		turnNumber = 0;
 		matchNumber = 0;
 		isGameFinished = false;
+	}
+
+	public void LoadScene(string sceneName)
+	{
+		SceneManager.LoadScene(sceneName);
 	}
 
 	Item[] GetAllItems()
