@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class ResizerGridLayout : MonoBehaviour
 	[Header("Grid Settings")]
 	public Transform content;
 	public Vector2Int sizeTarget = new Vector2Int(3, 3); // rows , columns
+	public GameObject DefaultItem;
 
 	private void Awake()
 	{
@@ -31,10 +33,12 @@ public class ResizerGridLayout : MonoBehaviour
 		if (content == null || content.childCount == 0)
 			return;
 
-		if (content.childCount > sizeTarget.x * sizeTarget.y)
+
+		if (content.childCount > sizeTarget.x * sizeTarget.y || content.childCount < sizeTarget.x * sizeTarget.y)
 		{
-			Debug.Log("Number elements inside contant is not matched with size target " + sizeTarget);
-			return;
+			Debug.Log("Updated number cells , Number elements inside contant is not matched with size target: " + sizeTarget);
+			UpdateContantElements();
+
 		}
 
 
@@ -59,5 +63,26 @@ public class ResizerGridLayout : MonoBehaviour
 		float cellHeight = availableHeight / rows;
 
 		grid.cellSize = new Vector2(cellWidth, cellHeight);
+	}
+
+
+	void UpdateContantElements()
+	{
+		int numberCells = sizeTarget.x * sizeTarget.y;
+		
+		for(int i = 0; i < content.childCount; i++)
+		{
+			if (content.childCount > numberCells)
+			{
+				Destroy(content.GetChild(0).gameObject);
+			}
+			else
+			if (content.childCount < 0)
+			{
+				Instantiate(DefaultItem, content.transform);
+			}
+			else
+				break;
+		}
 	}
 }

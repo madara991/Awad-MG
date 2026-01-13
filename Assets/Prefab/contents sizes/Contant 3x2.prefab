@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5891998269009264881}
   - component: {fileID: 5891998269009264882}
   - component: {fileID: 5891998269009264883}
+  - component: {fileID: -1809302364298047444}
   m_Layer: 5
   m_Name: Contant 3x2
   m_TagString: Untagged
@@ -107,6 +108,21 @@ MonoBehaviour:
   m_Spacing: {x: 27.7, y: 20}
   m_Constraint: 1
   m_ConstraintCount: 3
+--- !u!114 &-1809302364298047444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891998269009264885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545de51186d5c5140859604e9a24353d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  columns: 3
+  rows: 2
+  scale: 0.9
 --- !u!1001 &353976194097705781
 PrefabInstance:
   m_ObjectHideFlags: 0
