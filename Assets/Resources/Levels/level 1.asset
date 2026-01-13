@@ -10,6 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ce469092619a4b488302cf7cbccab8c, type: 3}
-  m_Name: level 3
+  m_Name: level 1
   m_EditorClassIdentifier: 
-  ContentSize: {fileID: 5984603277625498168, guid: c48c31212f9d4bb48851a5023198880d, type: 3}
+  ContentSizePrefab: {fileID: 5891998269009264885, guid: 0ff71526f48d02745b4006ccab4d459c, type: 3}
+  sprites:
+  - {fileID: -141144556, guid: f8253d8460f654546b8201ad3cc17752, type: 3}
+  - {fileID: 1155462303, guid: f8253d8460f654546b8201ad3cc17752, type: 3}
+  - {fileID: -1508059474, guid: f8253d8460f654546b8201ad3cc17752, type: 3}

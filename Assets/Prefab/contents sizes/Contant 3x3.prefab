@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columns: 3
   rows: 3
-  scale: 0.9
+  scale: 1.1
 --- !u!1001 &1853561012817900116
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class CreaterLevelsSO : ScriptableObject
 {
-    public GameObject ContentSize;
+    public GameObject ContentSizePrefab;
+    public Sprite[] sprites;
 
 }
