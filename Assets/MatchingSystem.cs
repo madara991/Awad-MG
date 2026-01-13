@@ -1,90 +1,111 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class MatchingSystem : MonoBehaviour
 {
-    private Item[] items;
+	private Item previousItem;
+	private Item nextItem;
 
-    [SerializeField] private Item previousItem;
-    [SerializeField] private Item nextItem;
+	private Coroutine matchingCoroutine;
+	private bool isCheckingMatch;
+	private bool currentMatchIsSuccess;
 
-    private Coroutine matchingCoroutine;
-
-
-	public float successMatchDeley = 0.5f;
-	public float failMatchDeley = 0.5f;
-
+	public float successMatchDeley = 0.4f;
+	public float failMatchDeley = 0.4f;
 
 	public UnityEvent OnSuccessMatching;
 	public UnityEvent OnFailMatching;
 
-	void Start()
-    {
-        items = GetComponentsInChildren<Item>();
-    }
+	public void OpenCard(Item item)
+	{
+		if (isCheckingMatch)
+		{
+			HandleFastInput();
+		}
 
+		if (previousItem == null)
+		{
+			previousItem = item;
+			item.Flip();
+			return;
+		}
 
-    public void OpenCard(Item item)
-    {
-        if(previousItem == null)
-        {
-            previousItem = item;
-            item.Flip();
-        }
-        else
-        if(nextItem == null)
-        {
-            nextItem = item;
-            item.Flip();
+		if (nextItem == null)
+		{
+			nextItem = item;
+			item.Flip();
+
+			currentMatchIsSuccess =
+				previousItem.image.sprite == nextItem.image.sprite;
 
 			matchingCoroutine = StartCoroutine(Matching(previousItem, nextItem));
 
-            return;
+			GameManager.Instance.RegisterTurn();
 		}
-
 	}
 
-     IEnumerator Matching(Item item1 , Item item2)
-     {
-        if (item1.image.sprite != item2.image.sprite)
-        {
-			StartCoroutine(ReturnFlipCards());
-			Debug.Log("is not match");
-            yield return null;
+	IEnumerator Matching(Item item1, Item item2)
+	{
+		isCheckingMatch = true;
+
+		if (!currentMatchIsSuccess)
+		{
+			yield return new WaitForSeconds(failMatchDeley);
+
+			item1.ReturnFlip();
+			item2.ReturnFlip();
+
+			ResetItems();
+			OnFailMatching?.Invoke();
+			yield break;
 		}
 
-		item1.isMatched = true;
-        item2.isMatched = true;
+		yield return new WaitForSeconds(successMatchDeley);
 
-        yield return new WaitForSeconds(successMatchDeley);
+		CompleteMatch(item1, item2);
+	}
 
-        item1.Matched();
+	void HandleFastInput()
+	{
+		if (matchingCoroutine != null)
+		{
+			StopCoroutine(matchingCoroutine);
+			matchingCoroutine = null;
+		}
+
+		if (currentMatchIsSuccess && previousItem != null && nextItem != null)
+		{
+			CompleteMatch(previousItem, nextItem);
+		}
+		else
+		{
+			if (previousItem != null)
+				previousItem.ReturnFlip();
+
+			if (nextItem != null)
+				nextItem.ReturnFlip();
+
+			ResetItems();
+		}
+	}
+
+	void CompleteMatch(Item item1, Item item2)
+	{
+		item1.Matched();
 		item2.Matched();
 
-		previousItem = null;
-		nextItem = null;
-
+		ResetItems();
 		OnSuccessMatching?.Invoke();
-	 }
 
-	IEnumerator ReturnFlipCards()
-	{
-		if (previousItem == null && nextItem == null)
-			yield return null;
-
-		yield return new WaitForSeconds(failMatchDeley);
-
-		previousItem.ReturnFlip();
-		nextItem.ReturnFlip();
-		previousItem = null;
-		nextItem = null;
+		GameManager.Instance.RegisterMatch();
 	}
 
-	// win when finish all cards match
-	// add sound effect 
-	// try order code 
-	// calculate turning number 
-	// caluclate match number (( inltlize number match from number cards when START)
+	void ResetItems()
+	{
+		previousItem = null;
+		nextItem = null;
+		isCheckingMatch = false;
+		currentMatchIsSuccess = false;
+	}
 }

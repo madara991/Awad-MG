@@ -1,55 +1,48 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour , IPointerClickHandler
+public class Item : MonoBehaviour, IPointerClickHandler
 {
-    public Image image;
-    public GameObject itemTarget;
+	public Image image;
+	public GameObject itemTarget;
 	public GameObject luckGO;
 
-	public bool isPressed;
-    public bool isMatched;
+	public bool isMatched { get; set; }
+	public bool IsFlipped { get; private set; }
 
+	private MatchingSystem matchingSystem;
 
-
-    private MatchingSystem matchingSystem;
-    private Action OnFlip;
-    void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("Click!");
-
-        matchingSystem.OpenCard(this);
-
-	}
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
+	void Start()
+	{
 		matchingSystem = FindObjectOfType<MatchingSystem>();
-
 	}
 
-   
-    public void Flip()
-    {
-        luckGO.SetActive(false);
-		OnFlip?.Invoke();
+	public void OnPointerClick(PointerEventData eventData)
+	{
+		if (isMatched || IsFlipped)
+			return;
 
+		matchingSystem.OpenCard(this);
+	}
+
+	public void Flip()
+	{
+		IsFlipped = true;
+		luckGO.SetActive(false);
 	}
 
 	public void ReturnFlip()
-    {
-        luckGO.SetActive(true);
-    }
+	{
+		IsFlipped = false;
+		luckGO.SetActive(true);
+	}
 
-    public void Matched()
-    {
-        luckGO.SetActive(false);
-        itemTarget.SetActive(false);
-    }
+	public void Matched()
+	{
+		isMatched = true;
+		IsFlipped = true;
+		luckGO.SetActive(false);
+		itemTarget.SetActive(false);
+	}
 }
