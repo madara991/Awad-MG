@@ -11,6 +11,8 @@ public class MatchingSystem : MonoBehaviour
 	private bool isCheckingMatch;
 	private bool currentMatchIsSuccess;
 
+	private Animator animator;
+
 	public float successMatchDeley = 0.4f;
 	public float failMatchDeley = 0.4f;
 
@@ -51,7 +53,6 @@ public class MatchingSystem : MonoBehaviour
 		if (!currentMatchIsSuccess)
 		{
 			yield return new WaitForSeconds(failMatchDeley);
-
 			item1.ReturnFlip();
 			item2.ReturnFlip();
 
@@ -60,8 +61,9 @@ public class MatchingSystem : MonoBehaviour
 			yield break;
 		}
 
+		item1.PlayMinimizeAnim();
+		item2.PlayMinimizeAnim();
 		yield return new WaitForSeconds(successMatchDeley);
-
 		CompleteMatch(item1, item2);
 	}
 
@@ -99,8 +101,11 @@ public class MatchingSystem : MonoBehaviour
 		ResetItems();
 		OnSuccessMatching?.Invoke();
 
+
 		GameManager.Instance.RegisterMatch();
 	}
+
+	
 
 	void ResetItems()
 	{

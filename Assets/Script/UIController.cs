@@ -18,11 +18,6 @@ public class UIController : MonoBehaviour
 				LevelManager.Instance.SetLevelSelected(index + 1);
 				LevelManager.Instance.LoadScene("game");
 			});
-
-			levelesButons[i].onClick.AddListener(() =>
-			{
-				
-			});
 		}
 	}
 }

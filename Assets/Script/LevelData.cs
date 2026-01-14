@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Level", menuName = "ScriptableObjects/Create New Level", order = 1)]
 
-public class CreaterLevelsSO : ScriptableObject
+public class LevelData : ScriptableObject
 {
     public GameObject ContentSizePrefab;
     public Sprite[] sprites;

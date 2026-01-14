@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 6896042711105314683}
   - component: {fileID: 6896042711105314682}
   - component: {fileID: 2908486911069693631}
+  - component: {fileID: 1924062862763673700}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -154,8 +155,27 @@ MonoBehaviour:
   image: {fileID: 6896042710718169801}
   itemTarget: {fileID: 6896042711199556700}
   luckGO: {fileID: 6896042712759098913}
-  isPressed: 0
-  isMatched: 0
+--- !u!95 &1924062862763673700
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896042711105314680}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fa5daf13e9287aa488ec9fa72f8453c7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6896042711199556700
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Read Only")]
 	public int levelSelected;
-    public CreaterLevelsSO levelData;
+    public LevelData levelData;
 
     // this script for managment levels for started 
 	void Awake()
@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
     {
         levelSelected = level;
         Debug.Log("level" + levelSelected);
-        levelData = Resources.Load("Levels/level "+ levelSelected ) as CreaterLevelsSO;
+        levelData = Resources.Load("Levels/level "+ levelSelected ) as LevelData;
     }
 
     // Called when player choice level in main menu

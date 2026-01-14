@@ -12,9 +12,11 @@ public class Item : MonoBehaviour, IPointerClickHandler
 	public bool IsFlipped { get; private set; }
 
 	private MatchingSystem matchingSystem;
+	private Animator animator;
 
 	void Start()
 	{
+		animator = GetComponent<Animator>();
 		matchingSystem = FindObjectOfType<MatchingSystem>();
 	}
 
@@ -44,5 +46,10 @@ public class Item : MonoBehaviour, IPointerClickHandler
 		IsFlipped = true;
 		luckGO.SetActive(false);
 		itemTarget.SetActive(false);
+	}
+
+	public void PlayMinimizeAnim()
+	{
+		animator.Play("SmallerAnim", 0);
 	}
 }
